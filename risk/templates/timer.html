@@ -1,0 +1,16 @@
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/timer.css' %}">
+  {% block css %}{% endblock %}
+  <script type="text/javascript" src="{% static 'js/timer.js' %}"></script>
+</head>
+
+<div class="timerBox">
+  <div class="timer">
+    您已經超過15分鐘都沒有動囉
+  </div>
+  <div class="timer-btn">
+    <button type="button" name="button" onclick="closeTimerBtn()">留下</button>
+    <button type="button" name="button" ><a href="{% url 'logout' %}">離開</a></button>
+  </div>
+</div>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base.html" %}
+
+{% block title %}<title>Player Info</title>{% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/slot_risk_player.css' %}">
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+</script>
+<script type="text/javascript" src="{% static 'js/slot_risk_player_detail.js' %}"></script>
+<script type="text/javascript">
+  // for rotating display of player tops
+  $(document).ready(function() {
+    var res_arr = res_fun();
+    document.getElementById('profit_text').innerText = res_arr.profit;
+    document.getElementById('freegame_text').innerText = res_arr.freegame;
+    document.getElementById('rtp_text').innerText = res_arr.rtp;
+    document.getElementById('bet_text').innerText = res_arr.bet;
+    document.getElementById('bigTitle').innerHTML = "A級玩家";
+  });
+</script>
+
+<body>
+  <div class="playerInfo">
+    <div>
+      <p class="heading-info">{{ user_info.owner_name }}</p>
+      <p class="result-info">總代</p>
+    </div>
+    <div>
+      <p class="heading-info">{{ user_info.parent_name }}</p>
+      <p class="result-info">子代</p>
+    </div>
+    <div>
+      <p class="heading-info">{{ user_info.user_name }}</p>
+      <p class="result-info">會員</p>
+    </div>
+    <div>
+      <p class="heading-info">{{ user_info.reg_date }}</p>
+      <p class="result-info">註冊時間</p>
+    </div>
+  </div>
+
+  <div class="line-Chart">
+    <div class="table-title">
+      單日損益 / 平均投注額
+      <div class="bottom-line"></div>
+    </div>
+    <script type="text/javascript">
+      const userDaily = {{ user_daily | safe }};
+      console.log('userDaily', userDaily)
+      const userssid = "{{ userssid }}";
+    </script>
+    <canvas id="lineChart" width="450px" height="180px"></canvas>
+    <script type="text/javascript" src="{% static 'js/slot_risk_player_daily_line_chart.js' %}"></script>
+  </div>
+  <div class="linetext-box">
+    <div>
+      <p class="heading-info">損益</p>
+      <p class="result-info" id="profit_text"></p>
+    </div>
+    <div>
+      <p class="heading-info">平均進free game場次數</p>
+      <p class="result-info" id="freegame_text"></p>
+    </div>
+    <div>
+      <p class="heading-info">RTP</p>
+      <p class="result-info" id="rtp_text"></p>
+    </div>
+    <div>
+      <p class="heading-info">總投注額</p>
+      <p class="result-info" id="bet_text"></p>
+
+    </div>
+  </div>
+  <div class="table-title">
+    玩家最高營利三日
+    <div class="bottom-line"></div>
+  </div>
+
+  <div class="message-box">
+    <div class="massage-text-box">
+      <div class="up-text" id="totWin-text"></div>
+      <div class="down-text">損益</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="mainBet-text"></div>
+      <div class="down-text">主要投注額</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="RTP-text"></div>
+      <div class="down-text">RTP</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="gameNum-text"></div>
+      <div class="down-text">遊戲數量</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="totRounds-text"></div>
+      <div class="down-text">場次數</div>
+    </div>
+  </div>
+
+  <div class="three-days-profit">
+
+    <div class="carousel-box">
+      <div class="carousel top3" id="top3">
+        <div class="top-text">
+          <font class="top-title">Top3&ensp;</font>
+          <font id="top3_text"></font>
+        </div>
+        <canvas id="top3Chart"></canvas>
+      </div>
+      <div class="carousel top1" id="top1">
+        <div class="top-text">
+          <font class="top-title">Top1&ensp;</font>
+          <font id="top1_text"></font>
+        </div>
+        <canvas id="top1Chart"></canvas>
+      </div>
+      <div class="carousel top2" id="top2">
+        <div class="top-text">
+          <font class="top-title">Top2&ensp;</font>
+          <font id="top2_text"></font>
+        </div>
+        <canvas id="top2Chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="message-box">
+    <div class="massage-text-box">
+      <div class="up-text" id="maxWin-text"></div>
+      <div class="down-text">顯示最大贏分</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="bet-text"></div>
+      <div class="down-text">投注額</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="game-text"></div>
+      <div class="down-text">遊戲</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="triggerGame-text"></div>
+      <div class="down-text">觸發遊戲</div>
+    </div>
+    <div class="massage-text-box">
+      <div class="up-text" id="payout-text"></div>
+      <div class="down-text">派彩倍率</div>
+    </div>
+  </div>
+
+  <div class="double-layer">
+    <div class="double-box">
+      <font class="big-title" color="#7fec97">派彩倍率</font>
+      <div class="lower-box" style="border-color:#7fec97;">
+        <div class="box-title">派彩次數/總派彩次數</div>
+        <div class="box-result">
+          <font id="multiple-one-id" color="#7fec97">20</font>
+          <font color="#7fec97">/</font>
+          <font id="multiple-tot-id" color="#7fec97">120</font>
+        </div>
+      </div>
+      <div class="upper-box" style="border-color:#7fec97;">
+        <div class="upper-bar-box" id="multipleBar"></div>
+      </div>
+    </div>
+    <div class="double-box">
+      <font class="big-title" color="#F6871D">投注額</font>
+      <div class="lower-box" style="border-color:#F6871D;">
+        <div class="box-title">場次數/總次數</div>
+        <div class="box-result">
+          <font id="bet-one-id" color="#F6871D"></font>
+          <font color="#F6871D">/</font>
+          <font id="bet-tot-id" color="#F6871D"></font>
+        </div>
+      </div>
+      <div class="upper-box" style="border-color:#F6871D;">
+        <div class="upper-bar-box" id="betBar"></div>
+      </div>
+    </div>
+    <div class="double-box">
+      <font class="big-title" color="#55FFEE">免費遊戲</font>
+      <div class="lower-box" style="border-color:#55FFEE;">
+        <div class="box-title">免費遊戲場次數/總次數</div>
+        <div class="box-result">
+          <font id="gameCode-one-id" color="#55FFEE"></font>
+          <font color="#55FFEE">/</font>
+          <font id="gameCode-tot-id" color="#55FFEE"></font>
+        </div>
+      </div>
+      <div class="upper-box" style="border-color:#55FFEE;">
+        <div class="upper-bar-box" id="gameCodeBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-box">
+    <div class="table-title">
+      當日最高派彩倍率前三筆
+      <div class="bottom-line"></div>
+    </div>
+    <table class="top-three-table">
+      <thead>
+        <tr>
+          <th>下注時間(gametoken)</th>
+          <th>單號</th>
+          <th>遊戲名稱</th>
+          <th>贏分</th>
+          <th>投注額</th>
+          <th>倍率</th>
+          <th>觸發遊戲</th>
+        </tr>
+      </thead>
+      <tbody id="top_three_info"></tbody>
+    </table>
+  </div>
+  <div class="pop-up-timerBox" id="pop_up_timerBox">
+    {% include 'timer.html' %}
+  </div>
+</body>
+
+{% endblock %}
+
+</html>

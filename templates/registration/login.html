@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+
+{% load socialaccount %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+<div class="box">
+
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="account-box">
+
+      <div class="logo-div"><img src="{% static 'img/login_logo.png' %}" align="absmiddle"></div>
+
+      <div class="input-div">
+
+
+        <!-- <td>{{ form.username.label_tag }}</td> -->
+        <div class="user-box">{{ form.username }}</div>
+
+
+        <!-- <td>{{ form.password.label_tag }}</td> -->
+        <div class="user-box">{{ form.password }}</div>
+
+        </table>
+        <input type="submit" value="login" onmousedown="mousedown(this)" onmouseup="mouseup(this)" id="loginbtn">
+
+      </div>
+
+      <div class="hr-div">
+        <span class="line"></span>
+        <div class="text">or</div>
+        <span class="line"></span>
+      </div>
+
+      <script type="text/javascript">
+        function mousedown(obj) {
+          var mousebtn = document.getElementById(obj.id)
+          mousebtn.style.opacity = "0.5";
+        }
+
+        function mouseup(obj) {
+          var mousebtn = document.getElementById(obj.id)
+          mousebtn.style.opacity = "1";
+        }
+      </script>
+      <div class="google-div">
+        <a href="{% provider_login_url 'google' method='oauth2' %}">
+          <div class="google-box" onmousedown="mousedown(this)" onmouseup="mouseup(this)" id="mousebtn">
+            <img src="{% static 'img/google.png' %}">
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+</html>

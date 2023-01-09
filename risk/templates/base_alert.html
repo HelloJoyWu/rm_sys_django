@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/base_alert.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="game-line-trend">
+  <div class="gameInfo-box">
+    <div class="select-rule">
+      <input type="radio" id="bets" name="gameInfo-btn" value="bets" onclick="changeRule(this.id)" checked><label for="bets">投注額</label>
+      <input type="radio" id="incomes" name="gameInfo-btn" value="incomes" onclick="changeRule(this.id)"><label for="incomes">損益</label>
+      <input type="radio" id="rounds" name="gameInfo-btn" value="rounds" onclick="changeRule(this.id)"><label for="rounds">場次</label>
+      <input type="radio" id="players" name="gameInfo-btn" value="players" onclick="changeRule(this.id)"><label for="players">玩家計數</label>
+    </div>
+
+    <div class="select-game-box">
+      <select multiple class="selectpicker show-tick form-control" id="select-game-list" data-live-search="true" placeholder="多選項遊戲" data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="false" data-select-all-text="全選"
+        data-deselect-all-text="重置"></select>
+    </div>
+  </div>
+  <div class="line-Chart">
+    <div class="legend-box" id="legend"></div>
+    <canvas id="lineChart" width="450px" height="180px"></canvas>
+  </div>
+  <div class="select-time">
+    <div class="select-rule">
+      <input type="radio" id="15m" name="gameInfo-time" value="min" checked><label for="15m" onclick="changeTime('min')">15分鐘</label>
+      <input type="radio" id="7day" name="gameInfo-time" value="day" ><label for="7day" onclick="changeTime()">7日</label>
+
+    </div>
+  </div>
+</div>
+<div class="game-table-box">
+  <span>近24小時總計</span>
+  <table align="center">
+    <tr class="top-td" id="hours_24_table_name"></tr>
+    <tr id="hours_24_table_bets"></tr>
+    <tr id="hours_24_table_incomes"></tr>
+    <tr class="bottom-tr" id="hours_24_table_rounds"></tr>
+  </table>
+</div>
+
+<div class="open-close-div-line" onclick="underBoxOpen()">
+  <div>
+    看更多
+  </div>
+  <div class="bounce-img">
+    <img src="{% static 'img/more.png' %}" id="line_drop">
+  </div>
+</div>
+
+<div class="under-data-box" id="underBox">
+  {% block base_alert_content %}{% endblock %}
+</div>
+
+{% endblock %}
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base_alert.html" %}
+
+{% block title %}<title>Fish Info</title>{% endblock %}
+{% load static %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/fish_alert.css' %}">
+{% endblock %}
+
+{% block base_alert_content %}
+<script type="text/javascript" src="{% static 'js/base_alert.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/fish_alert.js' %}"></script>
+<div class="select-box">
+  <div class="select-date">
+    <font>日期:</font>
+    <div class="select-div">
+      <select placeholder="選擇日期" class="selectpicker show-tick form-control" id="select_totIncome_date"></select>
+    </div>
+  </div>
+  <div class="select-game" id="select_totIncome_game_name_box">
+    <font>遊戲名稱:</font>
+    <div class="select-div">
+      <select title="選擇遊戲" multiple class="selectpicker show-tick form-control" data-live-search="true" data-actions-box="true" data-select-all-text="全選" data-deselect-all-text="重置" id="select_totIncome_game_name"></select>
+    </div>
+  </div>
+</div>
+<div class="totProfit-box">
+  <div class="table-title">
+    累積損益
+    <div class="bottom-line"></div>
+  </div>
+  <div class="totProfit-table" id='totProfit-table'>
+    <table>
+      <thead>
+        <tr>
+          <th>總代</th>
+          <th>子代</th>
+          <th>玩家帳號</th>
+          <th>遊戲名稱</th>
+          <th>註冊時間</th>
+          <th>投注額</th>
+          <th>損益</th>
+          <th>場次數</th>
+          <th>遊玩時間</th>
+        </tr>
+      </thead>
+      <tbody id='totProfit_tbody'></tbody>
+    </table>
+    <div class="totProfit-num-box" id="totProfitNum"></div>
+  </div>
+</div>
+
+<div class="hour-div">
+  <div class="table-title">
+    單小時狀況
+    <div class="bottom-line"></div>
+  </div>
+  <div class="hour-box">
+    <div class="hour-table">
+      <table>
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>投注額</th>
+            <th>遊戲名稱</th>
+            <th>損益</th>
+            <th>場次數</th>
+            <th>玩家數</th>
+          </tr>
+        </thead>
+        <tbody id="hour_table_info"></tbody>
+      </table>
+    </div>
+    <div class="hour-line">
+      <canvas id="hout-linechart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+</html>

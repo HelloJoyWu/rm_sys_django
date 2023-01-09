@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base_alert.html" %}
+
+{% block title %}<title>Arcade Info</title>{% endblock %}
+{% load static %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/table_alert.css' %}">
+{% endblock %}
+
+{% block base_alert_content %}
+<script type="text/javascript" src="{% static 'js/base_alert.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/table_alert.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    document.getElementById('bigTitle').innerHTML = "街機風控警示";
+  });
+</script>
+<div class="totProfit-title-box">
+  <div class="table-select-box">
+    <div class="select-date">
+      <select placeholder="選擇日期" class="selectpicker show-tick form-control" id="select_totIncome_date"></select>
+    </div>
+
+    <div class="select-name" id="select_totIncome_game_name_box">
+      <select id='select_totIncome_game_name' title="選擇遊戲" multiple class="selectpicker show-tick form-control" data-live-search="true" data-actions-box="true" data-select-all-text="全選" data-deselect-all-text="重置"></select>
+    </div>
+  </div>
+  <div class="table-rule-box">
+    <font>Rule</font>
+    <input type="radio" id="win" name="table-rule" value="HNW" onclick="totIncomeReset(this.value)" checked><label for="win">贏分>1,000</label>
+    <input type="radio" id="hour" name="table-rule" value="HCNW" onclick="totIncomeReset(this.value)"><label for="hour">單小時連贏6局</label>
+    <input type="radio" id="day" name="table-rule" value="NWDC" onclick="totIncomeReset(this.value)"><label for="day">連贏天數≥3天</label>
+    <input type="radio" id="bet" name="table-rule" value="ABR" onclick="totIncomeReset(this.value)"><label for="bet">平均投注額≥100</label>
+  </div>
+</div>
+<div class="totProfit-GameType-table">
+  <div class="table-title">
+    累積損益
+    <div class="bottom-line"></div>
+  </div>
+  <div class="profit-table-div">
+    <table align="center" class="profit-table">
+      <thead>
+        <tr>
+          <th>總代</th>
+          <th>子代</th>
+          <th>玩家帳號</th>
+          <th>遊戲名稱</th>
+          <th>註冊時間</th>
+          <th>最高連贏局數</th>
+          <th>投注額</th>
+          <th>損益</th>
+          <th>場次數</th>
+          <th>遊玩時間</th>
+        </tr>
+      </thead>
+      <tbody id="totIncomeTbody"></tbody>
+    </table>
+  </div>
+
+</div>
+<div class="tables-box">
+  <div class="totProfit-GameType-table">
+    <div class="table-title">
+      單小時狀況
+      <div class="bottom-line"></div>
+    </div>
+    <div class="tables-single">
+      <table align="center" class="single-hour">
+        <thead>
+          <tr class="little">
+            <th>日期</th>
+            <th>投注額</th>
+            <th>遊戲名稱</th>
+            <th>損益</th>
+            <th>場次數</th>
+            <th>玩家數</th>
+          </tr>
+        </thead>
+        <tbody id='hourStatusTbody'></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="totProfit-GameType-table">
+    <div class="table-title">
+      當天註冊玩家
+      <div class="bottom-line"></div>
+    </div>
+    <div class="tables-day">
+      <table align="center" class="that-day">
+        <thead>
+          <tr class="little">
+            <th>總代</th>
+            <th>遊戲名稱</th>
+            <th>玩家數</th>
+            <th>贏家(+)</th>
+            <th>損益</th>
+          </tr>
+        </thead>
+        <tbody id='playerRegTbody'></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+</html>

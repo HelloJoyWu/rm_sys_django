@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/online_risk_player.css' %}">
+  <script type="text/javascript" src="{% static 'js/online_risk_player.js' %}"></script>
+</head>
+
+<body>
+  <div class="online-box" id="playerOnline">
+    <button class="showbtn" id="showbtn">
+      <img src="{% static 'img/bells.png' %}">
+      <div class="img-right" id='unread_pot'></div>
+    </button>
+    <p class="title-onlint-player">線上A級玩家</p>
+    <div class="online-player-info" id='online_player_info_box'>
+    </div>
+  </div>
+  <div class="timely-box" id='timelyBox'></div>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base_alert.html" %}
+
+{% block title %}<title>Sport Info</title>{% endblock %}
+{% load static %}
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/sport_alert.css' %}">
+{% endblock %}
+
+{% block base_alert_content %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    document.getElementById('bigTitle').innerHTML = "體育風控警示";
+  });
+</script>
+
+{% endblock %}
+
+</html>

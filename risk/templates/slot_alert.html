@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Risk Players Alert</title>
+{% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/slot_alert.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="banner-box">
+  <div class="top-banner">
+    <div class="playerA-text">
+      A級玩家
+    </div>
+    <div class="select-box">
+      <select name="risk-dates" id="risk-dates">
+        <option selected style="display: none;">---&ensp;請選擇日期&ensp;---</option>
+        {% for date in risk_dates %}
+        <option id=risk-date value="{{ date }}">{{ date }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="select-box">
+      <select title="---&ensp;請選擇玩家&ensp;---" class="selectpicker" data-live-search="true" id="risk-players">
+        <option selected style="display: none;">---&ensp;請選擇玩家&ensp;---</option>
+      </select>
+    </div>
+    <button type="button" onclick="resetBtn()">重置</button>
+  </div>
+  <div class="doughnut-banner">
+    <div class="center-box">
+      <div class="canvas-box">
+        <canvas id="donutchart" width="100%" height="100%"></canvas>
+
+      </div>
+
+      <div class="doughnut-text-box">
+        <p class="doughnut-p">
+          <font class="totNum" id="totalPeople">50</font>
+          <font class="people">人</font>
+        </p>
+      </div>
+    </div>
+    <div class="show-legend-box">
+      <span>
+        <p>
+          <font color="#C83333">●</font>
+          <font>A級玩家</font>
+        </p>
+        <p>
+          <font color="#E16911">●</font>
+          <font>B級玩家</font>
+        </p>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="risk-bar-chart">
+  <canvas id="risk-bar" width="450px" height="180px"></canvas>
+</div>
+
+
+<center> <button class='player-btn' onclick="showDialog();">今日風險玩家</button></center>
+<div class="dialog-bg" id="dialog" onclick="hideDialog();"></div>
+<div class="dialog" id="dialog_info">
+  <div class="close" onclick="hideDialog();" id="x"><img src="{% static 'img/close_btn.png' %}" align="absmiddle"></div>
+  <ul id="td_risks"></ul>
+</div>
+<div class="pop-up-timerBox" id="pop_up_timerBox">
+  {% include 'timer.html' %}
+</div>
+
+<script type="text/javascript">
+    const riskInfo = {{ risk_info | safe }};
+    const checkRiskDate = "{{ check_risks_dt }}";
+</script>
+<script type="text/javascript" src="{% static 'js/slot_alert_bar_chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/slot_alert_dialog.js' %}"></script>
+{% endblock %}
+
+</html>

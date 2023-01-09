@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Agent risk sample</title>
+{% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/agent_alert.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript" src="{% static 'js/agent_alert.js' %}"></script>
+<div>
+  <div class="table-exterior">
+    <div class="alert-table">
+      <table>
+        <thead>
+          <tr>
+            <th>警示時間</th>
+            <th>警示等級</th>
+            <th>總代</th>
+            <th>子代</th>
+            <th>玩家帳號</th>
+            <th>遊戲名稱</th>
+            <th>遊戲代號</th>
+            <th>遊戲種類</th>
+            <th>單號</th>
+            <th>投注額</th>
+            <th>贏分</th>
+            <th>贏分倍率</th>
+          </tr>
+        </thead>
+        <tbody id='alert_tbody'></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="alert-page" id='page_btn'></div>
+</div>
+
+{% endblock %}
+
+</html>

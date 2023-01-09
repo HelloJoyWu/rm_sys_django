@@ -1,0 +1,55 @@
+# 檔案名稱 .gitignore
+
+# 忽略所有附檔名是 .json 的檔案
+*.json
+
+# 忽略所有附檔名是 .csv 的檔案
+*.csv
+
+# 忽略所有附檔名是 .xlsx 的檔案
+*.xlsx
+
+# 忽略所有附檔名是 .pickle 的檔案
+*.pickle
+
+*.idea
+
+/venv/
+
+*.pyc
+
+*.xml
+
+*.iml
+
+*.log
+*.log.*
+
+*.swp
+
+/tags
+
+/build
+
+/dist
+
+/__pycache__
+**__pycache__
+
+*.tar
+
+*.sqlite3
+
+/bin
+
+/lib
+
+pyvenv*
+
+*.DS_store
+
+static
+uwsgi.ini
+*.sock
+
+*.pid

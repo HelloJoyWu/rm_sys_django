@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% extends "base_alert.html" %}
+
+{% block title %}<title>Live Info</title>{% endblock %}
+{% load static %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/live_alert.css' %}">
+{% endblock %}
+
+{% block base_alert_content %}
+
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="{% static 'js/base_alert.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/live_alert.js' %}"></script>
+
+<div class="alert-player-24h">
+  <div class="table-title">
+    近24H警示玩家
+    <div class="bottom-line"></div>
+  </div>
+  <div class="alert-player-24h-table">
+    <table class="common-table">
+      <thead>
+        <tr>
+          <th>總代</th>
+          <th>子代</th>
+          <th>玩家帳號</th>
+          <th>總投注額</th>
+          <th>總損益</th>
+          <th>對沖人數</th>
+          <th>對沖次數</th>
+          <th>警示次數</th>
+        </tr>
+      </thead>
+      <tbody id="player_24hr_tbody"></tbody>
+      <tfoot id="player_24hr_tfoot"></tfoot>
+    </table>
+  </div>
+</div>
+
+<div class="player-hedging-time-query">
+  <div class="table-title">
+    玩家對沖時間查詢
+    <div class="bottom-line"></div>
+  </div>
+  <div class="info">
+    <div class="player-info">
+      <div class="player-info-title">
+        <span>玩家資訊</span>
+      </div>
+      <div class="player-info-div">
+        <p class="title-player-info">總代</p>
+        <p class="text-player-info" id='info_owner'></p>
+      </div>
+      <div class="player-info-div">
+        <p class="title-player-info">子代</p>
+        <p class="text-player-info" id='info_parent'></p>
+      </div>
+      <div class="player-info-div">
+        <p class="title-player-info">玩家帳號</p>
+        <p class="text-player-info" id='info_account'></p>
+      </div>
+      <div class="player-info-div last">
+        <p class="title-player-info">註冊時間</p>
+        <p class="text-player-info" id='info_time'></p>
+      </div>
+
+    </div>
+    <div class="player-hedging-time-table">
+      <table class="common-table">
+        <thead>
+          <tr>
+            <th>警示時間</th>
+            <th>單號</th>
+            <th>桌號ID</th>
+            <th>押碼類型</th>
+            <th>投注額(CNY)</th>
+          </tr>
+        </thead>
+        <tbody id="player_hedging_time_tbody"></tbody>
+        <tfoot id="player_hedging_time_tfoot"></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="hedging-players-info">
+  <div class="table-title">
+    對沖玩家資料
+    <div class="bottom-line"></div>
+  </div>
+  <div class="hedging-players-table">
+    <table class="common-table">
+      <thead>
+        <tr>
+          <th>總代</th>
+          <th>子代</th>
+          <th>玩家帳號</th>
+          <th>警示時間</th>
+          <th>單號</th>
+          <th>桌號ID</th>
+          <th>押碼類型</th>
+          <th>投注額(CNY)</th>
+        </tr>
+      </thead>
+      <tbody id='hedging_players_tbody'></tbody>
+      <tfoot id='hedging_players_tfoot'></tfoot>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
+</html>
